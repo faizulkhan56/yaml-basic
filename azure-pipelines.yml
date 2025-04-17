@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include: [ main ]
+
+pool:
+  name: Default        # your self‑managed pool
+  demands:
+    - agent.os -equals Linux
+
+steps:
+  - checkout: self
+
+  - script: |
+      echo "Hello from $(Build.BuildNumber)"
+    displayName: 'Echo greeting'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: .
+      artifact: drop
+
